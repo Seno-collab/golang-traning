@@ -28,15 +28,14 @@ func replaceByWord(levels map[string][]Data, key string, characters string) stri
 	}
 	return ""
 }
-func randomIndex(lengthParagraph int, list_container map[int]bool) int {
-	for true {
+func randomIndex(lengthParagraph int, listContainer map[int]bool) int {
+	for {
 		key := rand.Intn(lengthParagraph)
-		if !list_container[key] {
-			list_container[key] = true
+		if !listContainer[key] {
+			listContainer[key] = true
 			return key
 		}
 	}
-	return -1
 }
 func removeSpaceAfterPunctuation(input string) string {
 	re := regexp.MustCompile(`\s*([.,])`)
@@ -80,19 +79,19 @@ func main() {
 	words := re.FindAllString(value, -1)
 	max := 30
 	min := 10
-	amount_words_level_a1 := rand.Intn(max-min) + min
-	amount_words_level_a2 := max - amount_words_level_a1
+	amountWordLevelA1 := rand.Intn(max-min) + min
+	amountWordLevelA2 := max - amountWordLevelA1
 	easy := map[string]int{
-		"a1": amount_words_level_a1,
-		"a2": amount_words_level_a2,
+		"a1": amountWordLevelA1,
+		"a2": amountWordLevelA2,
 	}
-	container_duplicate := make(map[int]bool)
+	containerDuplicate := make(map[int]bool)
 	answer := make(map[string]int)
 	for key, value := range easy {
 		for easy[key] > 0 {
-			indexWord := randomIndex(len(words), container_duplicate)
-			is_valid, _ := regexp.MatchString(`\S`, words[indexWord])
-			if is_valid && err == nil {
+			indexWord := randomIndex(len(words), containerDuplicate)
+			isValid, _ := regexp.MatchString(`\S`, words[indexWord])
+			if isValid {
 				s1 := replaceByWord(levels, key, words[indexWord])
 				if s1 != "" {
 					answer[words[indexWord]] = indexWord
